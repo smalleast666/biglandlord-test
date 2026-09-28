@@ -29,14 +29,14 @@ jobs:
           python -m pip install --upgrade pip
           pip install -r requirements.txt
 
-      # 4. 检查 pytest 测试用例
-      - name: Collect pytest tests
+      # 4. 生成 JUnit 测试结果
+      - name: Run pytest
         run: |
-          pytest --collect-only -q > test-results.txt
+          pytest --collect-only -q --junitxml=test-results.xml
 
-      # 5. 保存测试结果
+      # 5. 上传测试结果
       - name: Upload test results
         uses: actions/upload-artifact@v4
         with:
           name: pytest-test-results
-          path: test-results.txt
+          path: test-results.xml
